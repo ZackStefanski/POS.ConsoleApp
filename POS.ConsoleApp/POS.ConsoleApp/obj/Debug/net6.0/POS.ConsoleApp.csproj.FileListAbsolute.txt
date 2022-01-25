@@ -1,0 +1,15 @@
+C:\Users\zstefanski01\Projects\POS.ConsoleApp\POS.ConsoleApp\POS.ConsoleApp\bin\Debug\net6.0\POS.ConsoleApp.exe
+C:\Users\zstefanski01\Projects\POS.ConsoleApp\POS.ConsoleApp\POS.ConsoleApp\bin\Debug\net6.0\POS.ConsoleApp.deps.json
+C:\Users\zstefanski01\Projects\POS.ConsoleApp\POS.ConsoleApp\POS.ConsoleApp\bin\Debug\net6.0\POS.ConsoleApp.runtimeconfig.json
+C:\Users\zstefanski01\Projects\POS.ConsoleApp\POS.ConsoleApp\POS.ConsoleApp\bin\Debug\net6.0\POS.ConsoleApp.dll
+C:\Users\zstefanski01\Projects\POS.ConsoleApp\POS.ConsoleApp\POS.ConsoleApp\bin\Debug\net6.0\ref\POS.ConsoleApp.dll
+C:\Users\zstefanski01\Projects\POS.ConsoleApp\POS.ConsoleApp\POS.ConsoleApp\bin\Debug\net6.0\POS.ConsoleApp.pdb
+C:\Users\zstefanski01\Projects\POS.ConsoleApp\POS.ConsoleApp\POS.ConsoleApp\obj\Debug\net6.0\POS.ConsoleApp.csproj.AssemblyReference.cache
+C:\Users\zstefanski01\Projects\POS.ConsoleApp\POS.ConsoleApp\POS.ConsoleApp\obj\Debug\net6.0\POS.ConsoleApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\zstefanski01\Projects\POS.ConsoleApp\POS.ConsoleApp\POS.ConsoleApp\obj\Debug\net6.0\POS.ConsoleApp.AssemblyInfoInputs.cache
+C:\Users\zstefanski01\Projects\POS.ConsoleApp\POS.ConsoleApp\POS.ConsoleApp\obj\Debug\net6.0\POS.ConsoleApp.AssemblyInfo.cs
+C:\Users\zstefanski01\Projects\POS.ConsoleApp\POS.ConsoleApp\POS.ConsoleApp\obj\Debug\net6.0\POS.ConsoleApp.csproj.CoreCompileInputs.cache
+C:\Users\zstefanski01\Projects\POS.ConsoleApp\POS.ConsoleApp\POS.ConsoleApp\obj\Debug\net6.0\POS.ConsoleApp.dll
+C:\Users\zstefanski01\Projects\POS.ConsoleApp\POS.ConsoleApp\POS.ConsoleApp\obj\Debug\net6.0\ref\POS.ConsoleApp.dll
+C:\Users\zstefanski01\Projects\POS.ConsoleApp\POS.ConsoleApp\POS.ConsoleApp\obj\Debug\net6.0\POS.ConsoleApp.pdb
+C:\Users\zstefanski01\Projects\POS.ConsoleApp\POS.ConsoleApp\POS.ConsoleApp\obj\Debug\net6.0\POS.ConsoleApp.genruntimeconfig.cache
