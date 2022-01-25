@@ -1,9 +1,13 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.FileIO;
+using System;
+using System.IO;
 
 namespace POS
 {
     class Program
     {
+        private static object value;
+
         public static void Main(string[] args)
         {
             // the "mainMenu()" is called to increase code legibility.
@@ -19,36 +23,6 @@ namespace POS
                     Console.Clear();
                     Console.WriteLine("New Rental");
                     Console.WriteLine("Press 0 to return to the Main Menu");
-
-
-                    // LEFT OFF HERE!!!!
-
-                    // i copied this to help me parse through the inventory data i created in a csv file - https://www.csharp-console-examples.com/csharp-console/read-csv-file-in-c-console-application/
-                    static string[,] LoadCSV(string filename)
-                    {
-                        string whole_file = File.ReadAllText(filename);
-
-                        // \r used for mac? - come back to this & see if we can omit
-                        whole_file = whole_file.Replace( '\n', '\r');
-                        string[] lines = whole_file.Split(new char[] { '\r' }, StringSplitOptions.RemoveEmptyEntries);
-
-                        // See how many rows & colums there are 
-                        int num_rows = lines.Length;
-                        int num_cols = lines[0].Split(',').Length;
-
-                        // allocate the data array
-                        string[,] values = new string [num_rows, num_cols];
-
-                        // using a for loop, we iterate through the number of rows and cols, essentially loading the data to be displayed later using a class. 
-                        for (int r = 0; r < num_rows; r++)
-                        {
-                            string[] line_r = lines[r].Split(',');
-                            for (int c=0; c<num_cols; c++)
-                            {
-                                values[r, c] = line_r[c];
-                            }
-                        }
-                    }
                 }
                 else if (userInput == "2")
                 {
@@ -61,6 +35,19 @@ namespace POS
                     Console.Clear();
                     Console.WriteLine("View/Edit Customers");
                     Console.WriteLine("Press 0 to return to the Main Menu");
+                }
+                else if (userInput == "4")
+                {
+                    Console.Clear();
+                    Console.WriteLine("View/Edit Inventory");
+                    Console.WriteLine("Press 0 to return to the Main Menu");
+                    ReadInventoryCSVFile();
+                    Console.WriteLine("Item to edit:");
+                    //string editItem;
+                    //while ((editItem = Console.ReadLine()) != 0)
+                    //{
+
+                    //}
                 }
                 else if (userInput == "0")
                 {
@@ -81,6 +68,29 @@ namespace POS
             Console.ReadLine();
         }
 
+        static void ReadInventoryCSVFile()
+        {
+
+            var lines = File.ReadAllLines("C:/Users/zstefanski01/Projects/POS.ConsoleApp/POS.ConsoleApp/POS.ConsoleApp/INVENTORY.csv");
+            var list = new List<Equipment>();
+
+            foreach (var line in lines)
+            {
+                var values = line.Split(',');
+                var equipment = new Equipment() { ID = values[0], Item = values[1], Cost = values[2] };
+                list.Add(equipment);
+            }
+            list.ForEach(x => Console.WriteLine($"{x.ID}\t{x.Item}\t{x.Cost}"));
+
+        }
+        public class Equipment
+        {
+            public string ID { get; set; }
+            public string Item { get; set; }
+            public string Cost { get; set; }
+
+        }
+
         private static void mainMenu()
         {
             Console.WriteLine("***********************");
@@ -88,9 +98,10 @@ namespace POS
             Console.WriteLine("***********************");
             Console.WriteLine("");
             Console.WriteLine("Menu:");
-            Console.WriteLine("1: New Rental");
+            Console.WriteLine("1: New Sale/Rental");
             Console.WriteLine("2: Create New Customer");
             Console.WriteLine("3: View/Edit Customers");
+            Console.WriteLine("4: View/Edit Inventory");
             Console.WriteLine("9: Exit Application");
         }
     }
