@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "3070c7b9-3a24-4467-9d05-94903803d28a": {
+      "ProjectGuid": "3070c7b9-3a24-4467-9d05-94903803d28a",
+      "DisplayName": "POS.ConsoleApp",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
