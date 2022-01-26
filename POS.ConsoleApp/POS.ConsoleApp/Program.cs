@@ -80,7 +80,7 @@ namespace POS
                 var equipment = new Equipment() { ID = values[0], Item = values[1], Cost = values[2] };
                 list.Add(equipment);
             }
-            list.ForEach(x => Console.WriteLine($"{x.ID}\t{x.Item}\t{x.Cost}"));
+            list.ForEach(i => Console.WriteLine($"{i.ID}\t{i.Item}\t\t{i.Cost}"));
 
         }
         public class Equipment
