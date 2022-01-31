@@ -1,17 +1,31 @@
 ﻿using Microsoft.VisualBasic.FileIO;
+using POS.ConsoleApp.Classes;
 using System;
 using System.IO;
 
 namespace POS
 {
-    class Program
+    partial class Program
     {
         private static object value;
 
         public static void Main(string[] args)
         {
-            // the "mainMenu()" is called to increase code legibility.
+            // the "mainMenu()" is exctracted to increase code legibility.
             mainMenu();
+            
+            // adding inventory.
+            Equipment mic = new Equipment("MIC",99.99);
+            Equipment cable = new Equipment("CABLE", 18.99);
+            Equipment micStand = new Equipment("MIC STAND", 24.99);
+
+            Console.WriteLine($"{mic.Item}\t{mic.Cost}\t{mic.ID}");
+            Console.WriteLine($"{cable.Item}\t{cable.Cost}\t{cable.ID}");
+            Console.WriteLine($"{micStand.Item}\t{micStand.Cost}\t{micStand.ID}");
+
+
+            Console.ReadLine();
+
             string userInput;
 
             // a "while" loop will ensure that the program runs consistantly until the user decides to exit. 
@@ -38,16 +52,9 @@ namespace POS
                 }
                 else if (userInput == "4")
                 {
-                    Console.Clear();
-                    Console.WriteLine("View/Edit Inventory");
-                    Console.WriteLine("Press 0 to return to the Main Menu");
-                    ReadInventoryCSVFile();
-                    Console.WriteLine("Item to edit:");
-                    //string editItem;
-                    //while ((editItem = Console.ReadLine()) != 0)
-                    //{
-
-                    //}
+                    Console.WriteLine("something");
+                    Console.ReadLine();
+                    //ViewEditInventory(inventory);
                 }
                 else if (userInput == "0")
                 {
@@ -68,28 +75,37 @@ namespace POS
             Console.ReadLine();
         }
 
-        static void ReadInventoryCSVFile()
-        {
+        //private static void ViewEditInventory(List<Equipment> inventory)
+        //{
+        //    Console.Clear();
 
-            var lines = File.ReadAllLines("C:/Users/zstefanski01/Projects/POS.ConsoleApp/POS.ConsoleApp/POS.ConsoleApp/INVENTORY.csv");
-            var list = new List<Equipment>();
+        //    Console.WriteLine("***********************");
+        //    Console.WriteLine("* View/Edit Inventory *");
+        //    Console.WriteLine("***********************");
+        //    Console.WriteLine("Press 0 to return to the Main Menu");
+        //    Console.WriteLine("__________________________________");
+        //    Console.WriteLine($"ID     \tItem     \tCost");
+        //    Console.WriteLine("");
 
-            foreach (var line in lines)
-            {
-                var values = line.Split(',');
-                var equipment = new Equipment() { ID = values[0], Item = values[1], Cost = values[2] };
-                list.Add(equipment);
-            }
-            list.ForEach(i => Console.WriteLine($"{i.ID}\t{i.Item}\t\t{i.Cost}"));
+        //    Console.WriteLine("'add' to add new inventory | 'id' to edit existing inventory.");
+        //    string inventoryUserInput = Console.ReadLine();
+        //    if (inventoryUserInput == "0")
+        //    {
+        //        Console.Clear();
+        //        mainMenu();
+        //    }
+        //    else if (inventoryUserInput == "add")
+        //    {
+        //        Console.WriteLine("What is the item?");
+        //        string newItem = Console.ReadLine();
+        //        Console.WriteLine("What is the cost?");
+        //        double newCost = double.Parse(Console.ReadLine());
 
-        }
-        public class Equipment
-        {
-            public string ID { get; set; }
-            public string Item { get; set; }
-            public string Cost { get; set; }
+        //        Equipment NEWITEM = new Equipment(newItem.ToUpper(),newCost);
 
-        }
+        //        ViewEditInventory(inventory);
+        //    }
+        //}
 
         private static void mainMenu()
         {
