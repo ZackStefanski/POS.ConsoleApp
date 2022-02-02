@@ -1,7 +1,4 @@
-﻿using Microsoft.VisualBasic.FileIO;
-using POS.ConsoleApp.Classes;
-using System;
-using System.IO;
+﻿using POS.ConsoleApp.Classes;
 
 namespace POS
 {
@@ -13,53 +10,38 @@ namespace POS
         {
             // the "mainMenu()" is exctracted to increase code legibility.
             mainMenu();
-            
+            List<Equipment> inventory = new List<Equipment>();
+
             // adding inventory.
-            Equipment mic = new Equipment("MIC",99.99);
-            Equipment cable = new Equipment("CABLE", 18.99);
-            Equipment micStand = new Equipment("MIC STAND", 24.99);
+            //inventory.Add(new Equipment("MIC", 99.99));
+            //inventory.Add(new Equipment("CABLE", 18.99));
+            //inventory.Add(new Equipment("MIC STAND", 24.99));
 
-            Console.WriteLine($"{mic.Item}\t{mic.Cost}\t{mic.ID}");
-            Console.WriteLine($"{cable.Item}\t{cable.Cost}\t{cable.ID}");
-            Console.WriteLine($"{micStand.Item}\t{micStand.Cost}\t{micStand.ID}");
+            //Display(inventory);
 
+            //CreateNewItem(inventory);
 
-            Console.ReadLine();
+            //// a "while" loop will ensure that the program runs consistantly until the user decides to exit. 
+            string userInput = Console.ReadLine();
 
-            string userInput;
-
-            // a "while" loop will ensure that the program runs consistantly until the user decides to exit. 
             while ((userInput = Console.ReadLine()) != "9")
             {
                 // "if" statements are used to allow the user to navigate through the console application.
                 if (userInput == "1")
                 {
                     Console.Clear();
-                    Console.WriteLine("New Rental");
-                    Console.WriteLine("Press 0 to return to the Main Menu");
-                }
-                else if (userInput == "2")
-                {
-                    Console.Clear();
-                    Console.WriteLine("Create New Customer");
-                    Console.WriteLine("Press 0 to return to the Main Menu");
-                }
-                else if (userInput == "3")
-                {
-                    Console.Clear();
-                    Console.WriteLine("View/Edit Customers");
-                    Console.WriteLine("Press 0 to return to the Main Menu");
-                }
-                else if (userInput == "4")
-                {
-                    Console.WriteLine("something");
+                    Console.WriteLine("Inventory");
+                    inventory.Add(new Equipment("MIC", 99.99));
+                    inventory.Add(new Equipment("CABLE", 18.99));
+                    inventory.Add(new Equipment("MIC STAND", 24.99));
+
+                    Display(inventory);
+
+                    CreateNewItem(inventory);
+
                     Console.ReadLine();
-                    //ViewEditInventory(inventory);
-                }
-                else if (userInput == "0")
-                {
-                    Console.Clear();
-                    mainMenu();
+                    Console.WriteLine("Press 0 to return to the Main Menu");
+
                 }
                 else if (userInput == null || userInput == "")
                 {
@@ -73,6 +55,26 @@ namespace POS
             Console.Clear();
             Console.WriteLine("Goodbye for now! ... and don't forget the power cable!");
             Console.ReadLine();
+        }
+
+        private static void CreateNewItem(List<Equipment> inventory)
+        {
+            Console.WriteLine("item");
+            string userInput = Console.ReadLine();
+            Console.WriteLine("cost");
+            double userInputCost = double.Parse(Console.ReadLine());
+            inventory.Add(new Equipment(userInput, userInputCost));
+
+            Console.Clear();
+            Display(inventory);
+        }
+
+        private static void Display(List<Equipment> inventory)
+        {
+            foreach (Equipment e in inventory)
+            {
+                e.makeMatrix();
+            }
         }
 
         //private static void ViewEditInventory(List<Equipment> inventory)
@@ -106,6 +108,7 @@ namespace POS
         //        ViewEditInventory(inventory);
         //    }
         //}
+
 
         private static void mainMenu()
         {
