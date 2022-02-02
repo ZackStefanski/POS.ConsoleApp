@@ -12,8 +12,24 @@ namespace POS.ConsoleApp.Classes
 
         public void makeMatrix()
         {
-            string[] matrix = { Item, Cost.ToString(), ID.ToString() };
-            Console.WriteLine($"{matrix[0]}\t{matrix[1]}\t{matrix[2]}");
+            
+            string[] matrix = { Item.ToUpper(), Cost.ToString(), ID.ToString() };
+            if (matrix[0].Length <= 8)
+            {
+                matrix[0] = matrix[0] + "\t\t";
+                Console.WriteLine($"{matrix[0]}{matrix[1]}\t{matrix[2]}");
+            } 
+            else if (matrix[0].Length >= 9 && matrix[0].Length <= 16)
+            {
+                matrix[0] = matrix[0] + "\t";
+                Console.WriteLine($"{matrix[0]}{matrix[1]}\t{matrix[2]}");
+            }
+            else
+            {
+                string abreviatedItem = matrix[0].Substring(0, 13);
+                abreviatedItem = abreviatedItem + "...";
+                Console.WriteLine($"{abreviatedItem}{matrix[1]}\t{matrix[2]}");
+            }
         }
 
         // A constructor is used to allow us to create new equipment objects.

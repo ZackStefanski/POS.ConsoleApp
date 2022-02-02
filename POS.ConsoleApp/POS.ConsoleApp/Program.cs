@@ -24,16 +24,21 @@ namespace POS
             //// a "while" loop will ensure that the program runs consistantly until the user decides to exit. 
             string userInput = Console.ReadLine();
 
-            while ((userInput = Console.ReadLine()) != "9")
+            while (userInput != "9")
             {
+
                 // "if" statements are used to allow the user to navigate through the console application.
                 if (userInput == "1")
                 {
                     Console.Clear();
-                    Console.WriteLine("Inventory");
+                    Console.WriteLine("INVENTORY");
+                    Console.WriteLine($"ITEM\t\tCOST\tID");
                     inventory.Add(new Equipment("MIC", 99.99));
                     inventory.Add(new Equipment("CABLE", 18.99));
                     inventory.Add(new Equipment("MIC STAND", 24.99));
+                    inventory.Add(new Equipment("XXXXXXXXXXXXXXXXX", 24.99));
+                    inventory.Add(new Equipment("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", 24.99));
+
 
                     Display(inventory);
 
@@ -117,10 +122,7 @@ namespace POS
             Console.WriteLine("***********************");
             Console.WriteLine("");
             Console.WriteLine("Menu:");
-            Console.WriteLine("1: New Sale/Rental");
-            Console.WriteLine("2: Create New Customer");
-            Console.WriteLine("3: View/Edit Customers");
-            Console.WriteLine("4: View/Edit Inventory");
+            Console.WriteLine("1: Access Inventory");
             Console.WriteLine("9: Exit Application");
         }
     }
