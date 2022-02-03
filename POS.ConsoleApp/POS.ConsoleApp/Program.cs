@@ -4,12 +4,12 @@ namespace POS
 {
     partial class Program
     {
-        private static object value;
 
         public static void Main(string[] args)
         {
             // the "mainMenu()" is exctracted to increase code legibility.
             mainMenu();
+
             List<Equipment> inventory = new List<Equipment>();
 
             // adding inventory.
@@ -64,11 +64,26 @@ namespace POS
 
         private static void CreateNewItem(List<Equipment> inventory)
         {
-            Console.WriteLine("item");
+            
+            Console.WriteLine("New Item Name:");
             string userInput = Console.ReadLine();
-            Console.WriteLine("cost");
-            double userInputCost = double.Parse(Console.ReadLine());
-            inventory.Add(new Equipment(userInput, userInputCost));
+
+            double userInputCostD;
+            while (true)
+            {
+                Console.WriteLine("New Item Cost:");
+                if (double.TryParse(Console.ReadLine(), out userInputCostD)) 
+                {
+                    // if the parse was successful, we can break out of the loop
+                    inventory.Add(new Equipment(userInput, userInputCostD));
+                    break;
+                }
+                else
+                {
+                    // if the parse was unsuccessful, display an error message and try again
+                    Console.WriteLine("Invalid number. Try again.");
+                }
+            }
 
             Console.Clear();
             Display(inventory);

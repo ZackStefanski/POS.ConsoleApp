@@ -7,13 +7,14 @@ namespace POS.ConsoleApp.Classes
 
         public string Item { get; set; }
         public double Cost { get; set; }
+        public int Id { get; set; }
 
-        static int ID = 0;
+        private static int m_Counter = 100;
+
 
         public void makeMatrix()
         {
-            
-            string[] matrix = { Item.ToUpper(), Cost.ToString(), ID.ToString() };
+            string[] matrix = { Item.ToUpper(), Cost.ToString(), Id.ToString() };
             if (matrix[0].Length <= 8)
             {
                 matrix[0] = matrix[0] + "\t\t";
@@ -37,6 +38,11 @@ namespace POS.ConsoleApp.Classes
         {
             Item = item;
             Cost = cost;
+
+            // I discovered how to automatically generate an incremented ID from this blog discussion: https://stackoverflow.com/questions/8813435/incrementing-a-unique-id-number-in-the-constructor/8813494
+            // I learned more about the topic here: https://docs.microsoft.com/en-us/dotnet/api/system.threading.interlocked.increment?view=net-6.0
+
+            this.Id = System.Threading.Interlocked.Increment(ref m_Counter);
         }
     }
 }
