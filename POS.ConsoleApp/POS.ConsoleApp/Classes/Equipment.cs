@@ -12,7 +12,7 @@ namespace POS.ConsoleApp.Classes
         private static int m_Counter = 100;
 
 
-        public void makeMatrix()
+        public void CreateItemMatrixView()
         {
             string[] matrix = { Item.ToUpper(), Cost.ToString(), Id.ToString() };
             if (matrix[0].Length <= 8)
@@ -44,5 +44,10 @@ namespace POS.ConsoleApp.Classes
 
             this.Id = System.Threading.Interlocked.Increment(ref m_Counter);
         }
+        public void ShowDetails(int ID)
+        {
+            Console.WriteLine($"Item: {Item} \t Cost: {Cost} \t {Id}");
+        }
+
     }
 }
