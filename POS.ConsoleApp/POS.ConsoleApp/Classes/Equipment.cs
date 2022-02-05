@@ -14,6 +14,7 @@ namespace POS.ConsoleApp.Classes
 
         public void CreateItemMatrixView()
         {
+            //Formatting for inventory page.
             string[] matrix = { Item.ToUpper(), Cost.ToString(), Id.ToString() };
             if (matrix[0].Length <= 8)
             {

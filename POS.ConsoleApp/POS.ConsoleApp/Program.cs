@@ -7,49 +7,76 @@ namespace POS
 
         public static void Main(string[] args)
         {
+            Equipment equipment;
+
+            // firstly, an instance of an object is declared. Then a list named "inventory" is created, and a series of instances of the object are created & added.
+
             List<Equipment> inventory = new List<Equipment>();
             inventory.Add(new Equipment("MIC", 99.99));
             inventory.Add(new Equipment("CABLE", 18.99));
             inventory.Add(new Equipment("MIC STAND", 24.99));
 
-            //TODO_____________________________________________ how to instanciate instances of class with inventory.ADD & constructor
-            Equipment f = new Equipment("name", 1234);
-
-            // the "mainMenu()" is exctracted to increase code legibility & make it reusable.
-            //mainMenu();
             string userInput_MainMenu;
-            // a "while" loop will ensure that the program runs consistantly until the user decides to exit. 
-            //string userInput_MainMenu = Console.ReadLine();
-
+            
+            // a "do/while" loop will ensure that the program runs consistantly until the user decides to exit. 
             do
             {
                 // the "mainMenu()" is exctracted to increase code legibility & make it reusable.
-                mainMenu();
-
-                // a do/while loop will ensure that the program runs consistantly until the user decides to exit. 
+                MainMenuRefresh();
                 userInput_MainMenu = Console.ReadLine();
-                // "if" statements are used to allow the user to navigate through the console application.
+
+                // "if/else if" statements are used to allow the user to navigate through the console application.
 
                 // INVENTORY "PAGE" DO/WHILE LOOP
                 if (userInput_MainMenu == "1")
                 {
                     do
                     {
-                        RefreshPage(inventory);
+                        InventoryPageRefresh(inventory);
                         string UserInput_Inventory = Console.ReadLine();
                         if (UserInput_Inventory == "1" ) // CREATE NEW ITEM
                         {
                             CreateNewItem(inventory);
-                            RefreshPage(inventory);
+                            InventoryPageRefresh(inventory);
                         }
                         else if (UserInput_Inventory == "2") // EDIT ITEM
                         {
-                            Console.WriteLine("Item ID that you wish to edit:");
-                            int UserInput_EditItem = int.Parse(Console.ReadLine());
+                            Console.WriteLine("________________________");
+                            Console.WriteLine("Which Item would you like to edit:");
+                            Console.WriteLine("ITEM ID:");
+                            // TODO - blank if nvm
+                            int ItemIDToEdit = int.Parse(Console.ReadLine());
+                            foreach (Equipment x in inventory)
+                            {
+                                if (x.Id == ItemIDToEdit)
+                                {
+                                    Console.WriteLine("________________________");
+                                    Console.WriteLine(x.Item + " | " + x.Cost + " | " + x.Id);
+                                    Console.WriteLine("New Item Name: | BLANK if nvm");
+                                    string NewName = Console.ReadLine();
+                                    double NewCost;
 
-                            //TODO
-                            f.ShowDetails(UserInput_EditItem);
-                            Console.ReadLine();
+                                    if (NewName != "")
+                                    {
+                                        x.Item = NewName;
+                                    }
+
+                                    do
+                                    {
+                                        Console.WriteLine("New Item Cost: | BLANK if nvm");
+                                        if (double.TryParse(Console.ReadLine(), out NewCost))
+                                        {
+                                            // if the parse was successful, create new item and break out of the loop
+                                            x.Cost = NewCost;
+                                            InventoryPageRefresh(inventory);
+                                        }
+                                        else
+                                        {
+                                            InventoryPageRefresh(inventory);
+                                        }
+                                    } while (true);
+                                }
+                            }
                         }
                         else if (UserInput_Inventory == "4") // BACK TO MAIN MENU
                         {
@@ -67,11 +94,6 @@ namespace POS
                     Console.WriteLine("S - Simple \nA - As \nF... \nAn inventory management system for the modern age.");
                     Console.ReadLine();
                 }
-                //else if (userInput_MainMenu == null || userInput_MainMenu == "")
-                //{
-                //    Console.WriteLine("please input a valid selection.");
-                //    Console.WriteLine("check if NumLock is off");
-                //}
                 else
                 {
                     Console.WriteLine("please input a valid selection.");
@@ -83,7 +105,7 @@ namespace POS
             Console.ReadLine();
         }
 
-        private static void RefreshPage(List<Equipment> inventory)
+        private static void InventoryPageRefresh(List<Equipment> inventory)
         {
             Console.Clear();
             Console.WriteLine("INVENTORY");
@@ -91,8 +113,7 @@ namespace POS
             Console.WriteLine("--------------------------------");
             Display(inventory);
             Console.WriteLine("--------------------------------");
-            Console.WriteLine("1: new item | 2: view existing item ");
-            Console.WriteLine("4: back ");
+            Console.WriteLine("1: new | 2: edit | 4: back");
         }
 
         private static void CreateNewItem(List<Equipment> inventory)
@@ -144,7 +165,7 @@ namespace POS
             }
         }
 
-        public static void mainMenu()
+        public static void MainMenuRefresh()
         {
             Console.Clear();
             Console.WriteLine("***********************");
@@ -157,28 +178,5 @@ namespace POS
             Console.WriteLine("9: Exit Application");
             //string userInput_MainMenu = Console.ReadLine();
         }
-
-        //public static void GetClassInstance()
-        //{
-        //    Console.WriteLine("Item ID that you wish to edit:");
-        //    int UserInput_EditItem = int.Parse(Console.ReadLine());
-        //    (UserInput_EditItem);
-
-        //    //do
-        //    //{
-        //    //    if ((UserInput_EditItem = int.Parse(Console.ReadLine())) != null)
-        //    //    {
-        //    //        // if the parse was successful, create new item and break out of the loop
-        //    //        Equipment.ShowDetails(UserInput_EditItem);
-        //    //        break;
-        //    //    }
-        //    //    else
-        //    //    {
-        //    //        // if the parse was unsuccessful, display an error message and try again
-        //    //        Console.WriteLine("Invalid number. Try again.");
-        //    //    }
-        //    //} while (true);
-
-        //}
     }
 }
