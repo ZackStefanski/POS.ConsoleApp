@@ -7,14 +7,46 @@ namespace POS
 
         public static void Main(string[] args)
         {
-            Equipment equipment;
-
             // firstly, an instance of an object is declared. Then a list named "inventory" is created, and a series of instances of the object are created & added.
 
             List<Equipment> inventory = new List<Equipment>();
-            inventory.Add(new Equipment("MIC", 99.99));
-            inventory.Add(new Equipment("CABLE", 18.99));
-            inventory.Add(new Equipment("MIC STAND", 24.99));
+            //inventory.Add(new Equipment("MIC", 99.99));
+            //inventory.Add(new Equipment("CABLE", 18.99));
+            //inventory.Add(new Equipment("MIC STAND", 24.99));
+
+            string path = "C:/Users/zstefanski01/Projects/POS.ConsoleApp/POS.ConsoleApp/POS.ConsoleApp/INVENTORY.csv";
+
+            string[] lines = File.ReadAllLines(path);
+            foreach (string line in lines)
+            {
+                string[] columns = line.Split(',');
+                string Item = columns[0];
+                double Cost = Convert.ToDouble(columns[1]);
+                int Id = Convert.ToInt32(columns[2]);
+
+                inventory.Add(new Equipment(Item, Cost, Id));
+
+                //Console.WriteLine("column 0:" + columns[0]);
+                //Console.WriteLine("column 1:" + columns[1]);
+                //Console.WriteLine("column 2:" + columns[2]);
+
+                //foreach (string column in columns)
+                //{
+                //    Console.WriteLine("column 0:" + columns[0]);
+                //    Console.WriteLine("column 1:" + columns[1]);
+                //    Console.WriteLine("column 2:" + columns[2]);
+                //    Console.WriteLine("--------");
+                //    //string Item;
+                //    //double Cost = ;
+                //    //int Id;
+
+
+                //    //columns
+                //    //Equipment equipment = new Equipment(columns[0], columns[1]);
+                //}
+            }
+            Display(inventory);
+            Console.ReadLine();
 
             string userInput_MainMenu;
             
@@ -69,10 +101,12 @@ namespace POS
                                             // if the parse was successful, create new item and break out of the loop
                                             x.Cost = NewCost;
                                             InventoryPageRefresh(inventory);
+                                            break;
                                         }
                                         else
                                         {
                                             InventoryPageRefresh(inventory);
+                                            break;
                                         }
                                     } while (true);
                                 }
@@ -91,7 +125,7 @@ namespace POS
                 else if (userInput_MainMenu == "8")
                 {
                     Console.Clear();
-                    Console.WriteLine("S - Simple \nA - As \nF... \nAn inventory management system for the modern age.");
+                    Console.WriteLine("S - Simple \nA - And \nFunctional \nAn inventory management system for the modern age.");
                     Console.ReadLine();
                 }
                 else
@@ -161,7 +195,7 @@ namespace POS
         {
             foreach (Equipment e in inventory)
             {
-                e.CreateItemMatrixView();
+                e.CreateItemGridView();
             }
         }
 
@@ -177,6 +211,13 @@ namespace POS
             Console.WriteLine("8: About Me");
             Console.WriteLine("9: Exit Application");
             //string userInput_MainMenu = Console.ReadLine();
+        }
+
+
+        //IS THIS NECCESARY?
+        public static void ValidateUserInput_String(string Validate)
+        {
+               
         }
     }
 }
