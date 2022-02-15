@@ -10,10 +10,10 @@ namespace POS
             // firstly, an instance of an object is declared. Then a list named "inventory" is created, and a series of instances of the object are created & added.
 
             List<Equipment> inventory = new List<Equipment>();
-            //inventory.Add(new Equipment("MIC", 99.99));
-            //inventory.Add(new Equipment("CABLE", 18.99));
-            //inventory.Add(new Equipment("MIC STAND", 24.99));
+            //List<Customer> customer = new List<Customer>();
 
+            // Here, we locate a file, parse the info, and pull each item in as a new instance of the Equipment class,
+            // 
             string path = "C:/Users/zstefanski01/Projects/POS.ConsoleApp/POS.ConsoleApp/POS.ConsoleApp/INVENTORY.csv";
 
             string[] lines = File.ReadAllLines(path);
@@ -24,28 +24,11 @@ namespace POS
                 double Cost = Convert.ToDouble(columns[1]);
                 int Id = Convert.ToInt32(columns[2]);
 
-                inventory.Add(new Equipment(Item, Cost, Id));
 
-                //Console.WriteLine("column 0:" + columns[0]);
-                //Console.WriteLine("column 1:" + columns[1]);
-                //Console.WriteLine("column 2:" + columns[2]);
-
-                //foreach (string column in columns)
-                //{
-                //    Console.WriteLine("column 0:" + columns[0]);
-                //    Console.WriteLine("column 1:" + columns[1]);
-                //    Console.WriteLine("column 2:" + columns[2]);
-                //    Console.WriteLine("--------");
-                //    //string Item;
-                //    //double Cost = ;
-                //    //int Id;
-
-
-                //    //columns
-                //    //Equipment equipment = new Equipment(columns[0], columns[1]);
-                //}
+                inventory.Add(new Equipment (Item, Cost, Id));
+                Console.WriteLine($"Added {Item} from the CSV file to the inventory.");
             }
-            Display(inventory);
+            Console.WriteLine("press enter to continue...");
             Console.ReadLine();
 
             string userInput_MainMenu;
@@ -68,7 +51,39 @@ namespace POS
                         string UserInput_Inventory = Console.ReadLine();
                         if (UserInput_Inventory == "1" ) // CREATE NEW ITEM
                         {
-                            CreateNewItem(inventory);
+                            //CreateNewItem(inventory);
+                            string? UserInput_CreateNewItem;
+                            double UserInput_ConvertToDouble;
+
+                            do
+                            {
+                                Console.WriteLine("New Item Name:");
+                                if ((UserInput_CreateNewItem = Console.ReadLine()) != "")
+                                {
+                                    break;
+                                }
+                                else
+                                {
+                                    // if the name was unsuccessful, display an error message and try again
+                                    Console.WriteLine("Invalid name. Try again.");
+                                }
+                            } while (true);
+                            do
+                            {
+                                Console.WriteLine("New Item Cost:");
+                                if (double.TryParse(Console.ReadLine(), out UserInput_ConvertToDouble))
+                                {
+                                    // if the parse was successful, create new item and break out of the loop
+                                    CreateNewItem(inventory, UserInput_CreateNewItem, UserInput_ConvertToDouble);
+                                    //inventory.Add(new Equipment(UserInput_CreateNewItem, UserInput_ConvertToDouble, newItemId));
+                                    break;
+                                }
+                                else
+                                {
+                                    // if the parse was unsuccessful, display an error message and try again
+                                    Console.WriteLine("Invalid number. Try again.");
+                                }
+                            } while (true);
                             InventoryPageRefresh(inventory);
                         }
                         else if (UserInput_Inventory == "2") // EDIT ITEM
@@ -85,7 +100,7 @@ namespace POS
                                     Console.WriteLine("________________________");
                                     Console.WriteLine(x.Item + " | " + x.Cost + " | " + x.Id);
                                     Console.WriteLine("New Item Name: | BLANK if nvm");
-                                    string NewName = Console.ReadLine();
+                                    string? NewName = Console.ReadLine();
                                     double NewCost;
 
                                     if (NewName != "")
@@ -150,42 +165,44 @@ namespace POS
             Console.WriteLine("1: new | 2: edit | 4: back");
         }
 
-        private static void CreateNewItem(List<Equipment> inventory)
+        private static void CreateNewItem(List<Equipment> inventory, string name, double cost)
         {
-            
-            //Console.WriteLine("New Item Name:");
-            string? UserInput_CreateNewItem;
-            double UserInput_ConvertToDouble;
+            int newItemId = inventory.OrderBy(x => x.Id).ToList().Last().Id + 1;
+            inventory.Add(new Equipment(name, cost, newItemId));
 
-            do
-            {
-                Console.WriteLine("New Item Name:");
-                if ((UserInput_CreateNewItem = Console.ReadLine()) != "")
-                {
-                    break;
-                }
-                else
-                {
-                    // if the name was unsuccessful, display an error message and try again
-                    Console.WriteLine("Invalid name. Try again.");
-                }
-            } while (true);
 
-            do
-            {
-                Console.WriteLine("New Item Cost:");
-                if (double.TryParse(Console.ReadLine(), out UserInput_ConvertToDouble))
-                {
-                    // if the parse was successful, create new item and break out of the loop
-                    inventory.Add(new Equipment(UserInput_CreateNewItem, UserInput_ConvertToDouble));
-                    break;
-                }
-                else
-                {
-                    // if the parse was unsuccessful, display an error message and try again
-                    Console.WriteLine("Invalid number. Try again.");
-                }
-            } while (true);
+
+            //string? UserInput_CreateNewItem;
+            //double UserInput_ConvertToDouble;
+
+            //do
+            //{
+            //    Console.WriteLine("New Item Name:");
+            //    if ((UserInput_CreateNewItem = Console.ReadLine()) != "")
+            //    {
+            //        break;
+            //    }
+            //    else
+            //    {
+            //        // if the name was unsuccessful, display an error message and try again
+            //        Console.WriteLine("Invalid name. Try again.");
+            //    }
+            //} while (true);
+            //do
+            //{
+            //    Console.WriteLine("New Item Cost:");
+            //    if (double.TryParse(Console.ReadLine(), out UserInput_ConvertToDouble))
+            //    {
+            //        // if the parse was successful, create new item and break out of the loop
+            //        inventory.Add(new Equipment(UserInput_CreateNewItem, UserInput_ConvertToDouble, newItemId));
+            //        break;
+            //    }
+            //    else
+            //    {
+            //        // if the parse was unsuccessful, display an error message and try again
+            //        Console.WriteLine("Invalid number. Try again.");
+            //    }
+            //} while (true);
 
         Console.Clear();
         Display(inventory);
@@ -195,7 +212,7 @@ namespace POS
         {
             foreach (Equipment e in inventory)
             {
-                e.CreateItemGridView();
+                e.ViewItemByGrid();
             }
         }
 
@@ -213,11 +230,5 @@ namespace POS
             //string userInput_MainMenu = Console.ReadLine();
         }
 
-
-        //IS THIS NECCESARY?
-        public static void ValidateUserInput_String(string Validate)
-        {
-               
-        }
     }
 }
