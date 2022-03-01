@@ -21,16 +21,25 @@ namespace POS
                 double Cost = Convert.ToDouble(columns[1]);
                 int Id = Convert.ToInt32(columns[2]);
 
-
                 inventory.Add(new Equipment(Item, Cost, Id));
                 Console.WriteLine($"Added {Item} from the CSV file to the inventory.");
             }
             Console.WriteLine("press enter to continue...");
             Console.ReadLine();
 
+            // MAIN LOOP
             while (true)
             {
-                MainMenuRefresh();
+                // MAIN MENU PAGE
+                Console.Clear();
+                Console.WriteLine("***********************");
+                Console.WriteLine("**** SAF_Inventory ****");
+                Console.WriteLine("***********************");
+                Console.WriteLine("");
+                Console.WriteLine("Menu:");
+                Console.WriteLine("1: Access Inventory");
+                Console.WriteLine("8: About Me");
+                Console.WriteLine("9: Exit Application");
                 string userInput_MainMenu = Console.ReadLine();
                 switch (userInput_MainMenu)
                 {
@@ -121,7 +130,7 @@ namespace POS
                                     continue;
                             } break;
                         } break;
-                    case "8": // About Me...
+                    case "8": // ABOUT ME PAGE
                         Console.Clear();
                         Console.WriteLine("S - Simple \nA - And \nFunctional \nAn inventory management system for the modern age.");
                         Console.WriteLine("click any key to return...");
@@ -129,6 +138,21 @@ namespace POS
                         continue;
                     case "9":
                         Console.Clear();
+                        Console.WriteLine("Would you like to back up your updated inventory to a txt file? y or n");
+                        string? userInput_TxtYesOrNo = Console.ReadLine();
+                        if (userInput_TxtYesOrNo == "y")
+                        {
+                            ExportInventoryToTxtFile(inventory);
+                            Console.WriteLine("done!");
+                            Console.ReadLine();
+                        } else if (userInput_TxtYesOrNo == "n")
+                        {
+                            return;
+                        } else
+                        {
+                            Console.WriteLine("please enter valid selection");
+                            return;
+                        }
                         Console.WriteLine("Goodbye for now! ... and don't forget the power cable!");
                         Console.ReadLine();
                         return;
@@ -164,17 +188,15 @@ namespace POS
             }
         }
 
-        public static void MainMenuRefresh()
+        public static void ExportInventoryToTxtFile(List<Equipment> inventory)
+        {
+            StreamWriter A = new StreamWriter("inventory.csv");
+            A.WriteLine("ITEM,COST,ID");
+            foreach (Equipment e in inventory)
             {
-            Console.Clear();
-            Console.WriteLine("***********************");
-            Console.WriteLine("**** SAF_Inventory ****");
-            Console.WriteLine("***********************");
-            Console.WriteLine("");
-            Console.WriteLine("Menu:");
-            Console.WriteLine("1: Access Inventory");
-            Console.WriteLine("8: About Me");
-            Console.WriteLine("9: Exit Application");
+                A.WriteLine(e.Item + "," + e.Cost + "," + e.Id + ",");
+            }
+            A.Close();
         }
     }
 }
