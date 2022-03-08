@@ -13,3 +13,4 @@ C:\Users\zstefanski01\Projects\POS.ConsoleApp\POS.ConsoleApp\POS.ConsoleApp\obj\
 C:\Users\zstefanski01\Projects\POS.ConsoleApp\POS.ConsoleApp\POS.ConsoleApp\obj\Debug\net6.0\ref\POS.ConsoleApp.dll
 C:\Users\zstefanski01\Projects\POS.ConsoleApp\POS.ConsoleApp\POS.ConsoleApp\obj\Debug\net6.0\POS.ConsoleApp.pdb
 C:\Users\zstefanski01\Projects\POS.ConsoleApp\POS.ConsoleApp\POS.ConsoleApp\obj\Debug\net6.0\POS.ConsoleApp.genruntimeconfig.cache
+C:\Users\zstefanski01\Projects\POS.ConsoleApp\POS.ConsoleApp\POS.ConsoleApp\bin\Debug\net6.0\Docs\inventory.csv

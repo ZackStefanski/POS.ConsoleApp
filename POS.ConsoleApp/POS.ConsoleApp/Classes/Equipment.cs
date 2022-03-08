@@ -5,7 +5,12 @@ namespace POS.ConsoleApp.Classes
 {
     public class Store
     {
-        //List<Equipment> inventoryInClass = new List<Equipment>();
+        private List<Equipment> inventoryInClass = new List<Equipment>();
+
+        public List<Equipment> GetList()
+        {
+            return inventoryInClass;
+        }
 
         //public void InventoryInClass(string item, double cost, int id)
         //{
@@ -15,41 +20,37 @@ namespace POS.ConsoleApp.Classes
         //    Id = id;
         //}
 
-        //public static void InventoryPageRefresh(List<Equipment> inventoryInClass)
-        //{
-        //    Console.Clear();
-        //    Console.WriteLine("INVENTORY");
-        //    Console.WriteLine($"ITEM\t\tCOST\tID");
-        //    Console.WriteLine("--------------------------------");
-        //    Display(inventoryInClass);
-        //    Console.WriteLine("--------------------------------");
-        //    Console.WriteLine("1: new | 2: edit | 4: back");
-        //}
 
-        //public static void CreateNewItem(List<Equipment> inventoryInClass, string name, double cost)
+        //public static void CreateNewItem(List<Equipment> inventoryInClass, string
+        //name, double cost)
         //{
         //    int newItemId = inventoryInClass.OrderBy(x => x.Id).ToList().Last().Id + 1;
         //    inventoryInClass.Add(new Equipment(name, cost, newItemId));
         //}
+        public static void CreateNewItem(string name, double cost)
+        {
+            //int newItemId = inventoryInClass.OrderBy(x => x.Id).ToList().Last().Id + 1;
+            //inventoryInClass.Add(new Equipment(name, cost, newItemId));
+        }
 
-        //public static void Display(List<Equipment> inventoryInClass)
-        //{
-        //    foreach (Equipment e in inventoryInClass)
-        //    {
-        //        e.ViewItemByGrid();
-        //    }
-        //}
+        public static void Display()
+        {
+            //foreach (Equipment e in inventoryInClass)
+            //{
+            //    e.ViewItemByGrid();
+            //}
+        }
 
-        //public static void ExportInventoryToTxtFile(List<Equipment> inventoryInClass)
-        //{
-        //    StreamWriter A = new StreamWriter("inventory.csv");
-        //    A.WriteLine("ITEM,COST,ID");
-        //    foreach (Equipment e in inventoryInClass)
-        //    {
-        //        A.WriteLine(e.Item + "," + e.Cost + "," + e.Id + ",");
-        //    }
-        //    A.Close();
-        //}
+        public static void ExportInventoryToTxtFile(List<Equipment> inventoryInClass)
+        {
+            StreamWriter A = new StreamWriter("inventory.csv");
+            A.WriteLine("ITEM,COST,ID");
+            foreach (Equipment e in inventoryInClass)
+            {
+                A.WriteLine(e.Item + "," + e.Cost + "," + e.Id + ",");
+            }
+            A.Close();
+        }
     }
     public class Equipment
     {
@@ -65,7 +66,7 @@ namespace POS.ConsoleApp.Classes
         public double Cost { get; set; }
         public int Id { get; private set; }
 
-        // Formatting for easier display.
+        // Formatting for easier display on "Inventory" page.
         public void ViewItemByGrid()
         {
             string[] grid = { Item.ToUpper(), Cost.ToString(), Id.ToString() };
