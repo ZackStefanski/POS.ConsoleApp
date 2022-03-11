@@ -7,40 +7,6 @@ namespace POS.ConsoleApp.Classes
     {
         private List<Equipment> inventoryInClass = new List<Equipment>();
 
-        public List<Equipment> GetList()
-        {
-            return inventoryInClass;
-        }
-
-        //public void InventoryInClass(string item, double cost, int id)
-        //{
-        //    Equipment(item, cost, id);
-        //    Item = item;
-        //    Cost = cost;
-        //    Id = id;
-        //}
-
-
-        //public static void CreateNewItem(List<Equipment> inventoryInClass, string
-        //name, double cost)
-        //{
-        //    int newItemId = inventoryInClass.OrderBy(x => x.Id).ToList().Last().Id + 1;
-        //    inventoryInClass.Add(new Equipment(name, cost, newItemId));
-        //}
-        public static void CreateNewItem(string name, double cost)
-        {
-            //int newItemId = inventoryInClass.OrderBy(x => x.Id).ToList().Last().Id + 1;
-            //inventoryInClass.Add(new Equipment(name, cost, newItemId));
-        }
-
-        public static void Display()
-        {
-            //foreach (Equipment e in inventoryInClass)
-            //{
-            //    e.ViewItemByGrid();
-            //}
-        }
-
         public static void ExportInventoryToTxtFile(List<Equipment> inventoryInClass)
         {
             StreamWriter A = new StreamWriter("inventory.csv");
@@ -61,31 +27,17 @@ namespace POS.ConsoleApp.Classes
             Cost = cost;
             Id = id;
         }
+        public Equipment(string item, double cost, int id, int oldid)
+        {
+            Item = item;
+            Cost = cost;
+            Id = id;
+            OldId = oldid;
+        }
 
         public string Item { get; set; }
         public double Cost { get; set; }
         public int Id { get; private set; }
-
-        // Formatting for easier display on "Inventory" page.
-        public void ViewItemByGrid()
-        {
-            string[] grid = { Item.ToUpper(), Cost.ToString(), Id.ToString() };
-            if (grid[0].Length <= 8)
-            {
-                grid[0] = grid[0] + "\t\t";
-                Console.WriteLine($"{grid[0]}{grid[1]}\t{grid[2]}");
-            } 
-            else if (grid[0].Length >= 9 && grid[0].Length <= 16)
-            {
-                grid[0] = grid[0] + "\t";
-                Console.WriteLine($"{grid[0]}{grid[1]}\t{grid[2]}");
-            }
-            else
-            {
-                string abreviatedItem = grid[0].Substring(0, 13);
-                abreviatedItem = abreviatedItem + "...";
-                Console.WriteLine($"{abreviatedItem}{grid[1]}\t{grid[2]}");
-            }
-        }
+        public int OldId { get; private set; }
     }
 }
