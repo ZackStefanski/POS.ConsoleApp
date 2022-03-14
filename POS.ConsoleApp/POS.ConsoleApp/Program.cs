@@ -39,88 +39,82 @@ namespace POS
                             string UserInput_Inventory = Console.ReadLine();
                             switch (UserInput_Inventory)
                             {
-                                case "1": // CREATE NEW ITEM
-                                    string? UserInput_NewItemName;
+                                case "1": // CREATE NEW ITEM & ADD TO <LIST> INVENTORY
                                     do
                                     {
                                         Console.Clear();
-                                        Console.WriteLine("CREATE NEW ITEM");
                                         Console.WriteLine("--------------------------------");
-                                        Console.WriteLine("Item Name: | leave blank if nvm");
-                                        if ((UserInput_NewItemName = Console.ReadLine()) != "")
-                                        {
-                                            do
-                                            {
-                                                Console.WriteLine("New Item Cost:");
-                                                if (double.TryParse(Console.ReadLine(), out double UserInput_NewCost))
-                                                {
-                                                    // if the parse was successful, create new item and break out of the loop
-                                                    InventoryRepository.AddToList(inventory, UserInput_NewItemName, UserInput_NewCost);
-                                                    break;
-                                                }
-                                                else
-                                                {
-                                                    // if the parse was unsuccessful, display an error message and try again
-                                                    Console.WriteLine("Invalid number. Try again.");
-                                                }
-                                            } while (true) ;
-                                        }
-                                        else
+                                        Console.WriteLine("\tCREATE NEW ITEM");
+                                        Console.WriteLine("--------------------------------");
+                                        Console.WriteLine("Input New Item Name... (press 0 to exit)");
+
+                                        string? UserInput_NewItemName = Console.ReadLine();
+                                        if (UserInput_NewItemName == "0")
                                         {
                                             break;
+                                        } else
+                                        {
+                                            Console.WriteLine("Input Item Cost... (press 0 to exit)");
+                                            double.TryParse(Console.ReadLine(), out double UserInput_NewCost);
+                                            if (UserInput_NewCost == 0)
+                                            {
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                InventoryRepository.AddToList(inventory, UserInput_NewItemName, UserInput_NewCost);
+                                                break;
+                                            }
                                         }
                                     } while (true);
                                     continue;
                                 case "2": // EDIT EXISTING ITEM
-                                    Console.WriteLine("________________________");
-                                    Console.WriteLine("Which Item would you like to edit? leave blank if nvm");
-                                    Console.WriteLine("ITEM ID:");
-                                    string? itemIDToEdit = Console.ReadLine();
-
-                                    if (itemIDToEdit != "")
+                                    do
                                     {
-                                        foreach (Equipment x in inventory)
+                                        Console.WriteLine("--------------------------------");
+                                        Console.WriteLine("Which item would you like to edit?... (0 to exit)");
+
+                                        string? UserInput_ItemToEdit = Console.ReadLine();
+                                        if (UserInput_ItemToEdit == "0")
                                         {
-                                            if (x.Id == int.Parse(itemIDToEdit))
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            Equipment Item = InventoryRepository.FindListItem(inventory, int.Parse(UserInput_ItemToEdit));
+                                            //there is an issue here - all are returning null?
+                                            if (Item == null)
                                             {
-                                                Console.WriteLine("________________________");
-                                                Console.WriteLine(x.Item + " | " + x.Cost + " | " + x.Id);
-                                                Console.WriteLine("New Item Name: | BLANK if nvm");
-                                                string? NewName = Console.ReadLine();
-                                                double NewCost;
-
-                                                do
+                                                Console.WriteLine($"item not found");
+                                                Console.ReadLine();
+                                                break;
+                                            } else
+                                            {
+                                                Console.WriteLine("New item name... (0 to exit)");
+                                                string UserInput_ItemName = Console.ReadLine();
+                                                if (UserInput_ItemName == "0")
                                                 {
-                                                    if (NewName != "")
-                                                    {
-                                                        x.Item = NewName;
-                                                        break;
-                                                    }
-                                                    else
-                                                    {
-                                                        break;
-                                                    }
-
-                                                } while (true);
-                                                do
+                                                    break;
+                                                } else
                                                 {
-                                                    Console.WriteLine("New Item Cost: | BLANK if nvm");
-                                                    if (double.TryParse(Console.ReadLine(), out NewCost))
+                                                    double NewCost;
+                                                    Console.WriteLine("New item cost... (0 to exit");
+                                                    string UserInput_ItemCost = Console.ReadLine();
+                                                    if (double.TryParse(UserInput_ItemCost, out NewCost))
                                                     {
                                                         // if the parse was successful, create new item and break out of the loop
-                                                        x.Cost = NewCost;
+                                                        Item.Cost = NewCost;
+                                                        Item.Item = UserInput_ItemName;
                                                         break;
                                                     }
                                                     else
                                                     {
                                                         break;
                                                     }
-                                                } while (true);
+                                                }
                                             }
                                         }
-                                    } else {
-                                        continue;
-                                    }
+                                    } while (true);
                                     continue;
                                 case "3": // DELETE EXISTING ITEM
                                     Console.WriteLine("________________________");

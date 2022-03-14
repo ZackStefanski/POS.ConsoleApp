@@ -112,6 +112,79 @@ namespace POS.ConsoleApp.Classes
                 }
             }
         }
+        public static Equipment FindListItem(List<Equipment> ListName, int id)
+        {
+            /*
+            Outputs: true or false, and the item info if true
+            Inputs: name of list & id
+            Constraints: 
+            Edge Cases:
+            ------------
+            ++ PSEUDOCODE ++
+            get list
+            find item in list
+            return the item
+            */
+            foreach (Equipment e in ListName)
+            {
+                if (id == e.Id)
+                {
+                    return e;
+                    //Console.WriteLine($"Item:{e.Item}\nCost:{e.Cost}\nID:{e.Id}\nOld ID (if applicable):{e.OldId}");
+                }
+            }
+            return null;
+        }
+        public void EditItemName(List<Equipment> ListName, int id, string name)
+        {
+            /*
+            Outputs: change name of item
+            Inputs: List name, id, and item name
+            Constraints:
+            Edge Cases:
+            ------------
+            ++ PSEUDOCODE ++
+            find list item
+            change name
+            */
+
+            Equipment Item = FindListItem(ListName, id);
+            Item.Item = name;
+        }
+        public void EditItemCost(List<Equipment> ListName, int id, double cost)
+        {
+            /*
+            Outputs: change name of item
+            Inputs: List name, id, and item name
+            Constraints:
+            Edge Cases:
+            ------------
+            ++ PSEUDOCODE ++
+            find list item
+            change name
+            */
+
+            Equipment Item = FindListItem(ListName, id);
+            Item.Cost = cost;
+        }
+        public static void DeleteItem(List<Equipment> ListName, int id)
+        {
+            /*
+            Outputs: delete item from the current list that it is referenceing 
+                & add to another list for deleted items
+            Inputs: List name, ID
+            Constraints:
+            Edge Cases:
+            ------------
+            ++ PSEUDOCODE ++
+            find list item
+            put in new list of deleted files
+            delete from original list
+            */
+            Equipment Item = FindListItem(ListName, id);
+            List<Equipment> DeletedItems = new List<Equipment> { Item };
+            ListName.Remove(Item);
+        }
         public static void ExportListToCSVFile(List<Equipment> ListName)
         {
             var path = System.IO.Directory.GetCurrentDirectory() + $@"\{ListName}.csv";
