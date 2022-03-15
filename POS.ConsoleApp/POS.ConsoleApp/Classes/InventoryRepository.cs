@@ -8,6 +8,18 @@ namespace POS.ConsoleApp.Classes
 {
     public class InventoryRepository
     {
+        /*
+        * All of the functionality for creating and maintaining a list of objects (in this case, 
+        * Equipment objects) is here. I did this with the intention of making the code reusable.
+        * There may come a time in the future where I would like to add other types of lists 
+        * (clients, employees, etc) and while the names may change, the functionality will remain
+        * somewhat consistent.
+        * 
+        * Throughout this console app, I apply a problem solving method that I learned from Eric Chiu, in
+        * his "Thinking like a Software Engineer" course called the OICE method. I helped me to frame 
+        * whatever I was trying to solve in an easy way before I tackle it with code. 
+        * S/O to Eric Chiu from Home Depot!!!
+        */
         public static List<Equipment> InitializeInventory()
         {
             /*
@@ -36,6 +48,11 @@ namespace POS.ConsoleApp.Classes
                 int Id = Convert.ToInt32(columns[2]);
                 result.Add(new Equipment(Item, Cost, Id));
             }
+            return result;
+        }
+        public static List<Equipment> InitializeListOfDeletedItems()
+        {
+            List<Equipment> result = new List<Equipment>();
             return result;
         }
         public static void AddToList(List<Equipment> ListName, string name, double cost)
@@ -167,7 +184,7 @@ namespace POS.ConsoleApp.Classes
             Equipment Item = FindListItem(ListName, id);
             Item.Cost = cost;
         }
-        public static void DeleteItem(List<Equipment> ListName, int id)
+        public static void DeleteItem(List<Equipment> ListNameFrom, List<Equipment> ListNameTo, int id)
         {
             /*
             Outputs: delete item from the current list that it is referenceing 
@@ -181,9 +198,9 @@ namespace POS.ConsoleApp.Classes
             put in new list of deleted files
             delete from original list
             */
-            Equipment Item = FindListItem(ListName, id);
-            List<Equipment> DeletedItems = new List<Equipment> { Item };
-            ListName.Remove(Item);
+            Equipment Item = FindListItem(ListNameFrom, id);
+            ListNameTo.Add(Item);
+            ListNameFrom.Remove(Item);
         }
         public static void ExportListToCSVFile(List<Equipment> ListName)
         {

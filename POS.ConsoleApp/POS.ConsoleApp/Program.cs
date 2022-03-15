@@ -8,7 +8,7 @@ namespace POS
         public static void Main(string[] args)
         {
             List<Equipment> inventory = InventoryRepository.InitializeInventory();
-            
+            List<Equipment> listOfDeletedItems = InventoryRepository.InitializeListOfDeletedItems();
 
             // MAIN LOOP
             while (true)
@@ -117,44 +117,34 @@ namespace POS
                                     } while (true);
                                     continue;
                                 case "3": // DELETE EXISTING ITEM
-                                    Console.WriteLine("________________________");
-                                    Console.WriteLine("Which Item would you like to delete? leave blank if nvm");
-                                    Console.WriteLine("ITEM ID:");
-                                    // TODO - blank if nvm
-                                    //int ItemIDToDelete = int.Parse(Console.ReadLine());
-                                    string? ItemIDToDelete = Console.ReadLine();
-                                    if (ItemIDToDelete != "")
+                                    do
                                     {
-                                        foreach (Equipment x in inventory)
+                                        Console.WriteLine("________________________");
+                                        Console.WriteLine("\tDELETE ITEM");
+                                        Console.WriteLine("________________________");
+                                        Console.WriteLine("Item ID... press 0 to exit");
+                                        string? ItemIDToDelete = Console.ReadLine();
+                                        if (ItemIDToDelete == "0")
                                         {
-                                            if (x.Id == int.Parse(ItemIDToDelete))
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            Equipment e = InventoryRepository.FindListItem(inventory, int.Parse(ItemIDToDelete));
+                                            e.DisplayItemProperties(e);
+                                            Console.WriteLine("ARE YOU SURE? y or n");
+                                            string UserInputResponse = Console.ReadLine();
+                                            if (UserInputResponse == "n")
                                             {
-                                                Console.WriteLine("________________________");
-                                                Console.WriteLine(x.Item + " | " + x.Cost + " | " + x.Id);
-                                                Console.WriteLine("Are you sure you wish to delete the item listed above? y or n");
-                                                string? UI_DeleteItem = Console.ReadLine();
-
-                                                if (UI_DeleteItem == "y")
-                                                {
-                                                    //var index = inventory.Single(x => x.Id == itemIDToEdit);
-                                                    //inventory.RemoveAt(index);
-                                                    var itemToRemove = inventory.Single(x => x.Id == int.Parse(ItemIDToDelete));
-                                                    inventory.Remove(itemToRemove);
-                                                }
-                                                else if (UI_DeleteItem == "n")
-                                                {
-                                                    return;
-                                                }
-                                                else
-                                                {
-                                                    Console.WriteLine("please make a valid selection");
-                                                }
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                InventoryRepository.DeleteItem(inventory, listOfDeletedItems, int.Parse(ItemIDToDelete));
+                                                break;
                                             }
                                         }
-                                    } else
-                                    {
-                                        continue;
-                                    }
+                                    } while (true);
                                     continue;
                                 case "4":
                                     break;
@@ -165,8 +155,7 @@ namespace POS
                         } break;
                     case "8": // ABOUT ME PAGE
                         Console.Clear();
-                        Console.WriteLine("S - Simple \nA - And \nFunctional \nAn inventory management system for the modern age.");
-                        Console.WriteLine("click any key to return...");
+                        Console.WriteLine("S - Simple \nA - As \nFrench Toast \nAn inventory management system for the modern age.");
                         Console.ReadLine();
                         continue;
                     case "9":

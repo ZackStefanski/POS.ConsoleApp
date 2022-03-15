@@ -3,24 +3,8 @@
 namespace POS.ConsoleApp.Classes
 
 {
-    public class Store
-    {
-        private List<Equipment> inventoryInClass = new List<Equipment>();
-
-        public static void ExportInventoryToTxtFile(List<Equipment> inventoryInClass)
-        {
-            StreamWriter A = new StreamWriter("inventory.csv");
-            A.WriteLine("ITEM,COST,ID");
-            foreach (Equipment e in inventoryInClass)
-            {
-                A.WriteLine(e.Item + "," + e.Cost + "," + e.Id + ",");
-            }
-            A.Close();
-        }
-    }
     public class Equipment
     {
-        // A constructor is used to allow us to create new equipment objects.
         public Equipment(string item, double cost, int id)
         {
             Item = item;
@@ -39,5 +23,9 @@ namespace POS.ConsoleApp.Classes
         public double Cost { get; set; }
         public int Id { get; private set; }
         public int OldId { get; private set; }
+        public string DisplayItemProperties(Equipment e)
+        {
+            return $"Item: {e.Item}\nCost: {e.Cost}\nID: {e.Id}\nOld ID (if applicable): {e.OldId}";
+        }
     }
 }
