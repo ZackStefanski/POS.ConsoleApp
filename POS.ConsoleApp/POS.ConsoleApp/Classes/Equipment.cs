@@ -18,7 +18,6 @@ namespace POS.ConsoleApp.Classes
             Id = id;
             OldId = oldid;
         }
-
         public string Item { get; set; }
         public double Cost { get; set; }
         public int Id { get; private set; }

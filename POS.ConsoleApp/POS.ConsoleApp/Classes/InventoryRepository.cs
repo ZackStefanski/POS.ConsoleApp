@@ -204,7 +204,21 @@ namespace POS.ConsoleApp.Classes
         }
         public static void ExportListToCSVFile(List<Equipment> ListName)
         {
-            var path = System.IO.Directory.GetCurrentDirectory() + $@"\{ListName}.csv";
+
+            /*
+            Outputs: csv file of list
+            Inputs: list name
+            Constraints:
+            Edge Cases:
+            ------------
+            ++ PSEUDOCODE ++
+            get list
+            idorate through list, creating strings of those list
+            add strings to a StringBuilder file
+            save as new csv file.
+            */
+
+            var path = System.IO.Directory.GetCurrentDirectory() + $@"\{ListName}_new.csv";
 
             // taken from https://stackoverflow.com/questions/18757097/writing-data-into-csv-file-in-c-sharp
             var csv = new StringBuilder();

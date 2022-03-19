@@ -22,7 +22,7 @@ namespace POS
                 Console.WriteLine("Menu:");
                 Console.WriteLine("1: Access Inventory");
                 Console.WriteLine("8: About Me");
-                Console.WriteLine("9: Exit Application");
+                Console.WriteLine("0: Exit Application");
                 string userInput_MainMenu = Console.ReadLine();
                 switch (userInput_MainMenu)
                 {
@@ -158,7 +158,7 @@ namespace POS
                         Console.WriteLine("S - Simple \nA - As \nFrench Toast \nAn inventory management system for the modern age.");
                         Console.ReadLine();
                         continue;
-                    case "9":
+                    case "0":
                         Console.Clear();
                         // ++++++++++
                         // FIX THIS
@@ -168,7 +168,9 @@ namespace POS
                         if (userInput_Csv == "y")
                         {
                             InventoryRepository.ExportListToCSVFile(inventory);
+                            InventoryRepository.ExportListToCSVFile(listOfDeletedItems);
                             Console.WriteLine("done!");
+                            Console.WriteLine(@"Inventory file saved to: ...POS.ConsoleApp\bin\Debug\net6.0\Docs\inventoryTESTSAVE.csv");
                             Console.ReadLine();
                         } else if (userInput_Csv == "n")
                         {
