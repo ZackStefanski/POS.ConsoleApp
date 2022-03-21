@@ -202,7 +202,7 @@ namespace POS.ConsoleApp.Classes
             ListNameTo.Add(Item);
             ListNameFrom.Remove(Item);
         }
-        public static void ExportListToCSVFile(List<Equipment> ListName)
+        public static void ExportListToCSVFile(List<Equipment> ListName, string name)
         {
 
             /*
@@ -218,17 +218,15 @@ namespace POS.ConsoleApp.Classes
             save as new csv file.
             */
 
-            var path = System.IO.Directory.GetCurrentDirectory() + $@"\{ListName}_new.csv";
+            var path = System.IO.Directory.GetCurrentDirectory() + $@"\Docs\{name}.csv";
 
-            // taken from https://stackoverflow.com/questions/18757097/writing-data-into-csv-file-in-c-sharp
             var csv = new StringBuilder();
             foreach (Equipment e in ListName)
             {
-                var newLine = string.Format(e.Item + "," + e.Cost + "," + e.Id + ",");
+                var newLine = string.Format(e.Item + "," + e.Cost + "," + e.Id + "," + e.OldId + ",");
                 csv.AppendLine(newLine);
             }
 
-            //after your loop
             File.WriteAllText(path, csv.ToString());
         }
 

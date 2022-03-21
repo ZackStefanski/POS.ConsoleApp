@@ -7,17 +7,16 @@ namespace POS
     {
         public static void Main(string[] args)
         {
-            List<Equipment> inventory = InventoryRepository.InitializeInventory();
-            List<Equipment> listOfDeletedItems = InventoryRepository.InitializeListOfDeletedItems();
+            Store MusicStore = new Store();
 
             // MAIN LOOP
             while (true)
             {
                 // MAIN MENU PAGE
                 Console.Clear();
-                Console.WriteLine("***********************");
-                Console.WriteLine("**** SAF_Inventory ****");
-                Console.WriteLine("***********************");
+                Console.WriteLine("******************************************");
+                Console.WriteLine("**** Inventory Management Console App ****");
+                Console.WriteLine("******************************************");
                 Console.WriteLine("");
                 Console.WriteLine("Menu:");
                 Console.WriteLine("1: Access Inventory");
@@ -33,7 +32,7 @@ namespace POS
                             Console.WriteLine("INVENTORY");
                             Console.WriteLine($"ITEM\t\tCOST\tID");
                             Console.WriteLine("--------------------------------");
-                            InventoryRepository.DisplayList(inventory);
+                            InventoryRepository.DisplayList(MusicStore.inventory);
                             Console.WriteLine("--------------------------------");
                             Console.WriteLine("1: new | 2: edit | 3: delete | 4: back");
                             string UserInput_Inventory = Console.ReadLine();
@@ -62,7 +61,7 @@ namespace POS
                                             }
                                             else
                                             {
-                                                InventoryRepository.AddToList(inventory, UserInput_NewItemName, UserInput_NewCost);
+                                                InventoryRepository.AddToList(MusicStore.inventory, UserInput_NewItemName, UserInput_NewCost);
                                                 break;
                                             }
                                         }
@@ -81,7 +80,7 @@ namespace POS
                                         }
                                         else
                                         {
-                                            Equipment Item = InventoryRepository.FindListItem(inventory, int.Parse(UserInput_ItemToEdit));
+                                            Equipment Item = InventoryRepository.FindListItem(MusicStore.inventory, int.Parse(UserInput_ItemToEdit));
                                             //there is an issue here - all are returning null?
                                             if (Item == null)
                                             {
@@ -130,7 +129,7 @@ namespace POS
                                         }
                                         else
                                         {
-                                            Equipment e = InventoryRepository.FindListItem(inventory, int.Parse(ItemIDToDelete));
+                                            Equipment e = InventoryRepository.FindListItem(MusicStore.inventory, int.Parse(ItemIDToDelete));
                                             e.DisplayItemProperties(e);
                                             Console.WriteLine("ARE YOU SURE? y or n");
                                             string UserInputResponse = Console.ReadLine();
@@ -140,7 +139,7 @@ namespace POS
                                             }
                                             else
                                             {
-                                                InventoryRepository.DeleteItem(inventory, listOfDeletedItems, int.Parse(ItemIDToDelete));
+                                                InventoryRepository.DeleteItem(MusicStore.inventory, MusicStore.listOfDeletedItems, int.Parse(ItemIDToDelete));
                                                 break;
                                             }
                                         }
@@ -155,22 +154,19 @@ namespace POS
                         } break;
                     case "8": // ABOUT ME PAGE
                         Console.Clear();
-                        Console.WriteLine("S - Simple \nA - As \nFrench Toast \nAn inventory management system for the modern age.");
+                        Console.WriteLine("Welcome! This is a Inventory Management Application I built for my first \nsemester at Code Louisville - Spring '22. The app is specifically designed to assist \nwith that of a generic music store's inventory. Each item added to the inventory \nis an iteration of the Equipment class. It is very loosely based off an application \nI used at a former place of employment.");
                         Console.ReadLine();
                         continue;
                     case "0":
-                        Console.Clear();
-                        // ++++++++++
-                        // FIX THIS
-                        // ++++++++++
-                        Console.WriteLine("Would you like to save your new inventory to a new local file? y or n");
+
+                        Console.WriteLine("Would you like to save a copy of your inventory and your deleted items to a new local CSV file? y or n");
                         string? userInput_Csv = Console.ReadLine();
                         if (userInput_Csv == "y")
                         {
-                            InventoryRepository.ExportListToCSVFile(inventory);
-                            InventoryRepository.ExportListToCSVFile(listOfDeletedItems);
+                            InventoryRepository.ExportListToCSVFile(MusicStore.inventory, "inventory");
+                            InventoryRepository.ExportListToCSVFile(MusicStore.listOfDeletedItems, "deleted_items");
                             Console.WriteLine("done!");
-                            Console.WriteLine(@"Inventory file saved to: ...POS.ConsoleApp\bin\Debug\net6.0\Docs\inventoryTESTSAVE.csv");
+                            Console.WriteLine(@"files saved in ...POS.ConsoleApp\bin\Debug\net6.0\Docs");
                             Console.ReadLine();
                         } else if (userInput_Csv == "n")
                         {
