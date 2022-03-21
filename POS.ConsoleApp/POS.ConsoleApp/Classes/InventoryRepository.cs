@@ -18,7 +18,7 @@ namespace POS.ConsoleApp.Classes
         * Throughout this console app, I apply a problem solving method that I learned from Eric Chiu, in
         * his "Thinking like a Software Engineer" course called the OICE method. I helped me to frame 
         * whatever I was trying to solve in an easy way before I tackle it with code. 
-        * S/O to Eric Chiu from Home Depot!!!
+        * S/O to Eric Chiu from Home Depot!
         */
         public static List<Equipment> InitializeInventory()
         {
