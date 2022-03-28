@@ -123,26 +123,33 @@ namespace POS
                                         Console.WriteLine("________________________");
                                         Console.WriteLine("Item ID... press 0 to exit");
                                         string? ItemIDToDelete = Console.ReadLine();
-                                        if (ItemIDToDelete == "0")
-                                        {
-                                            break;
-                                        }
-                                        else
-                                        {
-                                            Equipment e = InventoryRepository.FindListItem(MusicStore.inventory, int.Parse(ItemIDToDelete));
-                                            e.DisplayItemProperties(e);
-                                            Console.WriteLine("ARE YOU SURE? y or n");
-                                            string UserInputResponse = Console.ReadLine();
-                                            if (UserInputResponse == "n")
+                                            if (ItemIDToDelete == "0")
                                             {
                                                 break;
+                                            }
+                                            else if (InventoryRepository.ValidateListItem(MusicStore.inventory, int.Parse(ItemIDToDelete)))
+                                            {
+                                                Equipment e = InventoryRepository.FindListItem(MusicStore.inventory, int.Parse(ItemIDToDelete));
+                                                e.DisplayItemProperties(e);
+                                                Console.WriteLine("ARE YOU SURE? y or n");
+                                                string UserInputResponse = Console.ReadLine();
+                                                if (UserInputResponse == "n")
+                                                {
+                                                    break;
+                                                }
+                                                else
+                                                {
+                                                    InventoryRepository.DeleteItem(MusicStore.inventory, MusicStore.listOfDeletedItems, int.Parse(ItemIDToDelete));
+                                                    break;
+                                                }
                                             }
                                             else
                                             {
-                                                InventoryRepository.DeleteItem(MusicStore.inventory, MusicStore.listOfDeletedItems, int.Parse(ItemIDToDelete));
+                                                Console.WriteLine("invalid number");
+                                                Console.WriteLine("please try again");
+                                                Console.ReadLine();
                                                 break;
                                             }
-                                        }
                                     } while (true);
                                     continue;
                                 case "4":

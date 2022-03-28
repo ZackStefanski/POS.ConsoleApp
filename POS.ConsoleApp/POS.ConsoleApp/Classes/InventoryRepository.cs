@@ -152,6 +152,29 @@ namespace POS.ConsoleApp.Classes
             }
             return null;
         }
+        public static bool ValidateListItem(List<Equipment> ListName, int id)
+        {
+            /*
+            Outputs: true or false, and the item info if true
+            Inputs: name of list & id
+            Constraints: 
+            Edge Cases:
+            ------------
+            ++ PSEUDOCODE ++
+            get list
+            find item in list
+            return the item
+            */
+            foreach (Equipment e in ListName)
+            {
+                if (id == e.Id)
+                {
+                    return true;
+                    //Console.WriteLine($"Item:{e.Item}\nCost:{e.Cost}\nID:{e.Id}\nOld ID (if applicable):{e.OldId}");
+                }
+            }
+            return false;
+        }
         public void EditItemName(List<Equipment> ListName, int id, string name)
         {
             /*
